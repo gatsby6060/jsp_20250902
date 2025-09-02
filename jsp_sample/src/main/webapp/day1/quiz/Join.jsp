@@ -49,3 +49,43 @@
 	</form>
 </body>
 </html>
+<script>
+	function fnJoin(){
+		
+		let join = document.join
+		
+		if(join.id.value.length < 6){
+			alert("아이디는 최소 6글자 입니다.");
+			join.id.focus();
+			return;
+		}
+		
+		if(join.pwd.value.length < 8){
+			alert("비밀번호는 8 글자 이상이어야 합니다.");
+			join.pwd.focus();
+			return;
+		}
+		
+		let pwdRule = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{8,16}$/;
+		if (!pwdRule.test(join.pwd.value)){
+			alert("비밀번호는 특수 문자가 포함되어야 합니다");
+			join.pwd.focus();
+			return;
+		}
+		
+		if(join.pwd.value != join.pwd2.value){
+			alert("비밀번호가 다릅니다.");
+			login.pwd.focus();
+			return;
+		}
+		
+		if(join.userName.value.length == 0){
+			alert("이름을 입력해주세요.");
+			join.userName.focus();
+			return;
+		}
+		
+		join.submit();
+		
+	}
+</script>
