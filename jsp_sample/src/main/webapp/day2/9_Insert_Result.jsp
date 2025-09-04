@@ -20,7 +20,7 @@
 	
 		ResultSet rs = null;
 		String selectQuery = "SELECT * FROM STUDENT " + "WHERE STU_NO = '" + stuNo + "' ";
-		/* System.out.println(selectQuery); */
+		System.out.println("이거이거!"+selectQuery);
 		rs = stmt.executeQuery(selectQuery);
 	
 		if (rs.next()) {
