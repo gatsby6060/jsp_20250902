@@ -31,6 +31,7 @@
 </style>
 </head>
 <body>
+
 <div id = "container">
 	게시글 상세보기 페이지 
 	<%@ include file = "../db/db.jsp" %> <!-- 인클루드하는애 -->
@@ -38,7 +39,7 @@
 	<!--제목 작성자 작성일 내용  --> <!-- 스트립틀릿 -->
 	<%
 	String boardNo = request.getParameter("boardNo");
-
+	
 	ResultSet rs = null;
 	String query = "SELECT B.*, TO_CHAR(CDATETIME, 'YYYY-MM-DD') CTIME "
 	                + "FROM TBL_BOARD B "
@@ -50,7 +51,7 @@
 		/*out.println("뭐있음");*/
 	%>	
 		<form name="board" action = "Board-Remove.jsp">
-			<input name="boardNo" value="<%=rs.getString("BOARDNO")%>" hidden>
+			<input name="boardNo" value="<%=rs.getString("BOARDNO")%>" type=hidden>
 			<table>
 				<tr>
 					<th>제목</th>
@@ -70,8 +71,20 @@
 				</tr>
 			</table>
 			<div>
-				<!-- <input type = "submit" value="삭제">--> <!-- 이러면 바로 묻지도 않고 삭제 실행함 -->
-				<input type="button" value="삭제" onclick="fnRemove()">
+				<%	
+					String userId = rs.getString("USERID");
+					String sessionId = (String)session.getAttribute("sessionId");
+					String status = (String) session.getAttribute("sessionStatus");
+					if(userId.equals(sessionId) || status.equals("A")){
+				%>
+					<div>
+						<input type="button" value="삭제" onclick="fnRemove()">
+						<input type="button" value="수정" onclick="fnEdit()">
+					</div>
+				<% 		
+					}
+				%>
+				
 			</div>
 		</form>
 			
@@ -91,6 +104,12 @@
 </body>
 </html>
 <script>
+	function fnEdit(){
+		let board = document.board;
+		board.action =  "Board-Edit.jsp"
+		board.submit();
+	}
+
 	function fnRemove(){
 		let board = document.board;
 		if(!confirm("정말삭제하시겠습니까?")){

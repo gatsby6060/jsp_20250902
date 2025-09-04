@@ -35,6 +35,9 @@
 </style>
 </head>
 <body>
+<%
+String id = (String)session.getAttribute("sessionId"); 
+%>
 <div id = "container">
 		<form name="board" action = "Board-Add-Result.jsp">
 			<table>
@@ -54,8 +57,20 @@
 					<td><input type="text" name="title" class="input-txt"></td> <!-- td안에가 표현식 -->
 				</tr>
 				<tr>	
-					<th>작성자</th>
-					<td><input type="text" name="userId" class="input-txt"></td>
+					
+					
+					
+					<th>작성자</td>
+                    <!-- <td><input type="text" v-model="userId" disable></td> -->
+                    
+                    <td>
+                        <%= id %>
+                        <input value = "<%= id %>" type="text" name="userId" class="input-txt" >
+                    	<%-- <input  disabled  value = "<%= id %>" type="text" name="userId" class="input-txt"  > --%>
+                    </td>
+                    
+                    <!--<td>{{userId}}</td>  -->
+					
 				</tr>
 				<tr>
 					<th>내용</th>
@@ -78,4 +93,5 @@
 		let form = document.board;
 		form.submit();
 	}
+	
 </script>

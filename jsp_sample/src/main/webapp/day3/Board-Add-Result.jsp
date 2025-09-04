@@ -26,15 +26,20 @@
 		        +"SYSDATE,"
 		        +"SYSDATE"
 			    +")";
-				out.println("여기!!!    ");
-				out.println(query);
+				/* out.println("여기!!!    "); */
+				/* out.println(query); */
 		
-	/* 			int result = stmt.executeUpdate(query);
+	 			int result = stmt.executeUpdate(query);
 				if (result > 0) {
-					out.println("추가되었습니다.");
+					out.println("작성되었습니다!");
 				} else {
+			%>
+				<div>
+					<a href="Board-List.jsp"><button>목록으로</button></a>
+				</div>
+			<% 		
 					out.println("오류가 발생했습니다.");
-				} */
+				}
 		
 		
 	%>

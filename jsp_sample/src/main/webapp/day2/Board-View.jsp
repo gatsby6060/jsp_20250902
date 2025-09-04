@@ -72,6 +72,7 @@
 			<div>
 				<!-- <input type = "submit" value="삭제">--> <!-- 이러면 바로 묻지도 않고 삭제 실행함 -->
 				<input type="button" value="삭제" onclick="fnRemove()">
+				<input type="button" value="수정" onclick="fnEdit()">
 			</div>
 		</form>
 			
@@ -91,6 +92,11 @@
 </body>
 </html>
 <script>
+	function fnEdit(){
+		let board = document.board;
+		console.log(board.action);
+	}
+
 	function fnRemove(){
 		let board = document.board;
 		if(!confirm("정말삭제하시겠습니까?")){
