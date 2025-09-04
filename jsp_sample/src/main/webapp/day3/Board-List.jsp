@@ -108,7 +108,7 @@
 			}
 			
 			/*페이징변수*/
-			int pageSize = 5;
+			int pageSize = 5; //한페이지에 몇개씩 보여줄지...
 			int currentPage = 1;
 			
 			if(request.getParameter("size") != null){
@@ -117,6 +117,9 @@
 			if(request.getParameter("page") != null){
 				currentPage =  Integer.parseInt(request.getParameter("page"));
 			}
+			/* 현재 페이지 위치에 따라서 가져올 값을 정하기 위해 offset 구하기 */
+			int offset = (currentPage - 1) * pageSize;
+			
 			
 			String cntQuery = "SELECT COUNT(*) TOTAL FROM TBL_BOARD";
 			ResultSet rsCnt = stmt.executeQuery(cntQuery);
@@ -127,7 +130,8 @@
 			int pageList = (int)Math.ceil( (double) total / pageSize );
 			
 			String query = "SELECT B.*, TO_CHAR(CDATETIME, 'YYYY-MM-DD') CTIME "
-						  + "FROM TBL_BOARD B " + keywordQuery + orderQuery;
+						  + "FROM TBL_BOARD B " + keywordQuery + orderQuery
+						  + " OFFSET " + offset + " ROWS FETCH NEXT " + pageSize + " ROWS ONLY";
 		
 			rs = stmt.executeQuery(query);
 			
@@ -152,10 +156,10 @@
 		<%
 			for(int i = 1; i<=pageList; i++){
 				if(i == currentPage){
-					out.println("<a href='?page="+ i + "' class='active'>" + i + "</a>");
+					out.println("<a href='?page="+ i + "&size="+ pageSize +"' class='active'>" + i + "</a>");
 				}
 				else{
-				out.println("<a href='?page="+ i + "'>" + i + "</a>");
+					out.println("<a href='?page="+ i + "&size="+ pageSize +"'>" + i + "</a>");
 				}
 			}
 		%>
@@ -165,7 +169,7 @@
 		<a href="Board-Add.jsp">
 			<input type="button" value="글쓰기">
 		</a>
-	
+	</div>
 
 </body>
 </html>

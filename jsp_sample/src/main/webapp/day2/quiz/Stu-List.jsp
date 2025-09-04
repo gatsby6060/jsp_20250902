@@ -81,6 +81,13 @@
 	
 	</table>		
 </div>
+
+	<div>
+		<a href="Stu-Add.jsp">
+			<input type="button" value="학생추가">
+		</a>
+	</div>
+
 </body>
 </html>
 <script>
