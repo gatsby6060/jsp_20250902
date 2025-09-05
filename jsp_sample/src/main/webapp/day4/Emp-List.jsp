@@ -25,7 +25,7 @@
 	
 	.grade{
 		color : blue;
-		font-weigth : bold;
+		font-weight : bold;
 	}
 	a{
 		color : black;
