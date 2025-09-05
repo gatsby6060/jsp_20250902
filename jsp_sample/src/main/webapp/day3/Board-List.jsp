@@ -48,8 +48,12 @@
 <body>
 <%@ include file = "../db/db.jsp" %>
 	<div id = "container">
+	<% 
+		String keyword = request.getParameter("keyword");
+	%>
+	
 	<div id = "search">
-		검색어 : <input type = "text" id = "keyword">
+		검색어 : <input type = "text" id = "keyword" value = "<%=keyword != null ? keyword : ""%>">  
 				<button onclick="fnSearch()">검색</button>
 	</div>
 	<div id = "search">
@@ -94,7 +98,7 @@
 		
 		<%
 			ResultSet rs = null;
-			String keyword = request.getParameter("keyword");
+			
 			String keywordQuery = "";
 			if(keyword != null){
 				keywordQuery = "WHERE TITLE LIKE '%"+keyword+"%' ";	
@@ -156,10 +160,10 @@
 		<%
 			for(int i = 1; i<=pageList; i++){
 				if(i == currentPage){
-					out.println("<a href='?page="+ i + "&size="+ pageSize +"' class='active'>" + i + "</a>");
+					out.println("<a href='?page="+ i + "&size="+ pageSize + "&keyword=" + keyword +"' class='active'>" + i + "</a>");
 				}
 				else{
-					out.println("<a href='?page="+ i + "&size="+ pageSize +"'>" + i + "</a>");
+					out.println("<a href='?page="+ i + "&size="+ pageSize + "&keyword=" + keyword +"'>" + i + "</a>");
 				}
 			}
 		%>
