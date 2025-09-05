@@ -121,7 +121,7 @@
 			int offset = (currentPage - 1) * pageSize;
 			
 			
-			String cntQuery = "SELECT COUNT(*) TOTAL FROM TBL_BOARD";
+			String cntQuery = "SELECT COUNT(*) TOTAL FROM TBL_BOARD " + keywordQuery;
 			ResultSet rsCnt = stmt.executeQuery(cntQuery);
 			rsCnt.next();
 			
@@ -170,17 +170,31 @@
 			<input type="button" value="글쓰기">
 		</a>
 	</div>
+<input id = "pageSize" value = "<%= pageSize %>" hidden>	
 
 </body>
 </html>
 <script>
+	let size = document.querySelector("#pageSize").value;
+	let selectList = document.querySelector("#number");
+	for(let i=0 ; i<selectList.length ; i++){
+		if(selectList[i].value == size){
+			selectList[i].selected = true;
+		}
+	}
+	
+/* 	console.log(selectList);
+	console.log(size);
+	console.log(); */
+
 	function fnBoard(boardNo){
 		location.href = "Board-View.jsp?boardNo="+boardNo;
 	}
 	
 	function fnSearch(){
 		let keyword = document.querySelector("#keyword").value;
-		location.href = "Board-List.jsp?keyword="+keyword;
+		
+		location.href = "Board-List.jsp?keyword="+keyword+"&size="+size;
 	}
 	
 	function fnList(column, orderKind){
